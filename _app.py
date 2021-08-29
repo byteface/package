@@ -12,8 +12,8 @@ import webbrowser
 
 from app import app_proxy as app
 
-assets = os.path.join(sys._MEIPASS, 'assets')
-# assets = 'assets'
+# assets = os.path.join(sys._MEIPASS, 'assets')
+assets = 'assets'
 # sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth?
 
 
@@ -121,7 +121,15 @@ root=Tk()
 root.geometry("300x400")
 gui=GUI(root)
 
-def main():
+print('wtf!')
+global __once
+__once = False
+def __main_app_launcher():
+    global __once
+    if __once:
+        return
+    __once = True
+    print('HEY!')
     # root.after(1000, lambda: check())
     root.mainloop()
 
@@ -133,6 +141,7 @@ class AppProxy:
         self._process = None
 
     def run(self):
+        print('proxy run')
         mp = multiprocessing.get_context("fork")
         self._process = mp.Process(target=self._run)
         self._process.daemon = True
@@ -150,7 +159,12 @@ class AppProxy:
 
 
 if __name__ == '__main__':
+    print('fuck face')
     a = AppProxy()
+    print('fuck face1')
     a.run()
-    main()
+    # exec(open('app.py').read())
+    # print('fuck face2')
+    __main_app_launcher()
+    # print('fuck face3')
     a.stop()

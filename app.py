@@ -1,12 +1,9 @@
-from tkinter import *
-from tkinter import filedialog as fd
-from tkinter import ttk
 import sys
 import os
-
-
-# import os
 import random
+
+import webbrowser
+
 from json import load
 from dataclasses import dataclass, asdict, field
 from sanic import Sanic
@@ -18,17 +15,13 @@ from domonic.CDN import *
 from domonic.javascript import setTimeout, clearTimeout
 # from domonic.javascript import setInterval, clearInterval
 
+# assets = os.path.join(sys._MEIPASS, 'assets')
+assets = 'assets'
+# sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth? # TODO - remove this?
 
-assets = os.path.join(sys._MEIPASS, 'assets')
-# assets = 'assets'
-sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth? # TODO - remove this?
-
-
-#  TO run this :
-#  pip3 install sanic
-#  pip3 install sanic-session
 
 app = Sanic(name='Hangman')
+app.debug = False
 app.static('/assets', './assets')
 
 session = Session(app, interface=InMemorySessionInterface())
@@ -169,8 +162,8 @@ async def play(request):
 
 class Run():
     def run(self):
-        print('Main app starting on localhost:8000')
-        setTimeout( lambda: webbrowser.open_new('http://127.0.0.1:8000/'), 1000 )
-        app.run(host='127.0.0.1', port=8000, debug=True)
+        # print('Main app starting on localhost:8000 in a moment')
+        # setTimeout( lambda: webbrowser.open_new('http://127.0.0.1:8000/'), 5000 )
+        app.run(host='127.0.0.1', port=8000, debug=False)
 
 app_proxy = Run()
