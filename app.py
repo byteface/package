@@ -15,8 +15,8 @@ from domonic.CDN import *
 from domonic.javascript import setTimeout, clearTimeout
 # from domonic.javascript import setInterval, clearInterval
 
-# assets = os.path.join(sys._MEIPASS, 'assets')
-assets = 'assets'
+assets = os.path.join(sys._MEIPASS, 'assets')
+# assets = 'assets'
 # sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth? # TODO - remove this?
 
 

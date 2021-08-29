@@ -38,20 +38,29 @@ the .spec files have been modified to include from venv. They are aboslute so wi
 
 # notes
 
+- boot time seems slow (several secs) (would it be faster w/o interpretter?)
+
+- remember asset base paths need changing when building vs when running locally
+```
+	assets = os.path.join(sys._MEIPASS, 'assets')
+	#assets = 'assets'
+```
+
 - debug mode in servers will create 2 tkinter windows as it reloads the \_app.py
+
 
 
 # notes - mac
 
-not having a console when launching on mac. see last few responses
-
-https://github.com/pyinstaller/pyinstaller/issues/3275
+not having a console when launching on mac. see last few responses here: https://github.com/pyinstaller/pyinstaller/issues/3275
 
 
 
 # notes - windows
 
 - you CAN'T create a windows .exe from a mac
+
+TODO - do a windows build
 
 
 

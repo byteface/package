@@ -12,8 +12,8 @@ import webbrowser
 
 from app import app_proxy as app
 
-# assets = os.path.join(sys._MEIPASS, 'assets')
-assets = 'assets'
+assets = os.path.join(sys._MEIPASS, 'assets')
+# assets = 'assets'
 # sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth?
 
 
