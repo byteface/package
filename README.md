@@ -54,3 +54,5 @@ a script to zip the binaries and a read me etc.
 can you make it a git repo with actions that does the buiding for you?
 
 
+notes on app bundles
+https://github.com/pyinstaller/pyinstaller/issues/3275

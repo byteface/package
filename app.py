@@ -16,18 +16,12 @@ from sanic_session import Session, InMemorySessionInterface
 from domonic.html import *
 from domonic.CDN import *
 from domonic.javascript import setTimeout, clearTimeout
-from domonic.javascript import setInterval, clearInterval
+# from domonic.javascript import setInterval, clearInterval
 
-# global MAINLOOP_INT_ID
-# MAINLOOP_INT_ID = None
-# import threading
-
-# import multiprocessing
-# from multiprocessing.pool import ThreadPool as Pool
 
 assets = os.path.join(sys._MEIPASS, 'assets')
 # assets = 'assets'
-sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth?
+sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth? # TODO - remove this?
 
 
 #  TO run this :
@@ -175,6 +169,8 @@ async def play(request):
 
 class Run():
     def run(self):
+        print('Main app starting on localhost:8000')
+        setTimeout( lambda: webbrowser.open_new('http://127.0.0.1:8000/'), 1000 )
         app.run(host='127.0.0.1', port=8000, debug=True)
 
 app_proxy = Run()
