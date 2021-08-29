@@ -1,58 +1,62 @@
-
-Packaging...
-
-
-requirement
-
-A solution that can bundle tkinter, a server and some assets.
-
-Has some options and a floating panel to launch a browser window or can install launch another app/exe.
+# Bundle...
 
 
-scripts may be required to add app icons
-
-make file all the steps
+## Mucking around with pyinstaller. 
 
 
+This test tries to create an 'app launcher' with tkinter, which can open the browser or restart a self contained server.
+
+Uses pyinstaller to bundle the python interpretter and a sanic server.
 
 
-# looks like assets will need to use a method to get a relative base path
+# how it works
 
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
+\_app.py is the tkinter wrapper it loads the app.py file and runs it.
 
-    (return os.path.join(base_path, relative_path)
+currently it expects the app.py to have this in the app.py to run it. but that may change.
 
+```
+	class Run():
+	    def run(self):
+	        app.run(host='127.0.0.1', port=8000, debug=False) # warning debug True will create 2 tkinter windows
 
-
-as well as a command to copy assets to the install
-
-  https://github.com/ciscomonkey/flask-pyinstaller
+	app_proxy = Run()
+```
 
 
+# building
 
+All the commands to build it are in the Makefile. i.e.
 
-Also you CANT create a windows exe from mac. so will have to see if same command runs on windows to build .exe
+```
+make mac
+```
+
+the .spec files have been modified to include from venv. They are aboslute so will need changing for your machine.
 
 
 
-A 'downloads' page for the various versions
+# notes
 
-a script to zip the binaries and a read me etc.
-
-
-
-*note. i still didn't see where it put the copied files/folders - so not simple to edit after building.
+- debug mode in servers will create 2 tkinter windows as it reloads the \_app.py
 
 
+# notes - mac
 
-can you make it a git repo with actions that does the buiding for you?
+not having a console when launching on mac. see last few responses
 
-
-notes on app bundles
 https://github.com/pyinstaller/pyinstaller/issues/3275
+
+
+
+# notes - windows
+
+- you CAN'T create a windows .exe from a mac
+
+
+
+# TODO
+- See if can setup github actions to do the builds for all 3 platforms so you don't have to switch machines.
+- A 'downloads' page for the various versions
+- a script to zip the binaries and a read me etc.
+- makefile script to autoupdate app name etc

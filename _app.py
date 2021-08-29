@@ -121,16 +121,14 @@ root=Tk()
 root.geometry("300x400")
 gui=GUI(root)
 
-print('wtf!')
-global __once
+
+global __once # TODO - don't need now. was 
 __once = False
 def __main_app_launcher():
     global __once
     if __once:
         return
     __once = True
-    print('HEY!')
-    # root.after(1000, lambda: check())
     root.mainloop()
 
 
@@ -141,30 +139,26 @@ class AppProxy:
         self._process = None
 
     def run(self):
-        print('proxy run')
+        # print('proxy run')
         mp = multiprocessing.get_context("fork")
         self._process = mp.Process(target=self._run)
         self._process.daemon = True
         self._process.start()
 
     def _run(self):
-        print("Starting main app")
+        # print("Starting main app")
         app.run()
 
     def stop(self):
         os.kill(self._process.pid, SIGTERM)
-        print("Stopping main app")
+        # print("Stopping main app")
         self._process.join()
         self._process.terminate()
 
 
 if __name__ == '__main__':
-    print('fuck face')
     a = AppProxy()
-    print('fuck face1')
     a.run()
     # exec(open('app.py').read())
-    # print('fuck face2')
     __main_app_launcher()
-    # print('fuck face3')
     a.stop()

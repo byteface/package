@@ -21,7 +21,6 @@ assets = 'assets'
 
 
 app = Sanic(name='Hangman')
-app.debug = False
 app.static('/assets', './assets')
 
 session = Session(app, interface=InMemorySessionInterface())
@@ -164,6 +163,6 @@ class Run():
     def run(self):
         # print('Main app starting on localhost:8000 in a moment')
         # setTimeout( lambda: webbrowser.open_new('http://127.0.0.1:8000/'), 5000 )
-        app.run(host='127.0.0.1', port=8000, debug=False)
+        app.run(host='127.0.0.1', port=8000, debug=False) # warning debug True will create 2 tkinter windows
 
 app_proxy = Run()
