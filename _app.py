@@ -34,12 +34,11 @@ def connect_to_server(address):
 class GUI:
     """
 
-    This application opens a single file in Read Only. (but you can still hi-lite)
+    This application is just a tkinter launcher.
 
-    If you navigate away from the file the screen will blur so the text cannot be seen.
+    It's aim will be to show the status of conneted server or servers.
 
-    Auto Show : When selecting the app it can show the content immediately or wait for you to press the show button.
-    Always Visible : Doesn't go into hide mode
+    and have buttons to restart the server or open the browser.
 
     """
 
