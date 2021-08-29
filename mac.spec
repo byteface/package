@@ -4,7 +4,7 @@
 block_cipher = None
 
 
-a = Analysis(['app.py'],
+a = Analysis(['_app.py'],
              pathex=['/Users/byteface/Desktop/apptest'],
              binaries=[],
              datas=[
