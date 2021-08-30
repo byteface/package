@@ -15,8 +15,17 @@ from domonic.CDN import *
 from domonic.javascript import setTimeout, clearTimeout
 # from domonic.javascript import setInterval, clearInterval
 
-assets = os.path.join(sys._MEIPASS, 'assets')
-# assets = 'assets'
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+
+    return os.path.join(os.path.abspath("."), relative_path)
+
+#assets = os.path.join(sys._MEIPASS, 'assets')
+#assets = 'assets'
+#assets = os.path.abspath('.')
+assets = resource_path('assets')
 # sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth? # TODO - remove this?
 
 

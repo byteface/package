@@ -12,10 +12,19 @@ import webbrowser
 
 from app import app_proxy as app
 
-assets = os.path.join(sys._MEIPASS, 'assets')
-# assets = 'assets'
-# sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth?
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
 
+    return os.path.join(os.path.abspath("."), relative_path)
+
+#assets = os.path.join(sys._MEIPASS, 'assets')
+#assets = 'assets'
+#assets = os.path.abspath('.')
+
+# sys.path.insert(0, sys._MEIPASS)  # will this add libs full depth?
+assets = resource_path('assets')
 
 def open_browser():
     webbrowser.open_new('http://127.0.0.1:8000/')
@@ -131,6 +140,7 @@ def __main_app_launcher():
     root.mainloop()
 
 
+
 class AppProxy:
 
     def __init__(self):
@@ -139,8 +149,10 @@ class AppProxy:
 
     def run(self):
         # print('proxy run')
-        mp = multiprocessing.get_context("fork")
-        self._process = mp.Process(target=self._run)
+        # mp = multiprocessing.get_context("fork")
+        from multiprocessing import Process
+        # multiprocessing.set_start_method("spawn", force=True)
+        self._process = Process(target=self._run)
         self._process.daemon = True
         self._process.start()
 
@@ -149,15 +161,19 @@ class AppProxy:
         app.run()
 
     def stop(self):
-        os.kill(self._process.pid, SIGTERM)
+        # os.kill(self._process.pid, SIGTERM)
         # print("Stopping main app")
-        self._process.join()
-        self._process.terminate()
+       #  self._process.join()
+       #  self._process.terminate()
+       pass
 
 
 if __name__ == '__main__':
+    multiprocessing.freeze_support()
     a = AppProxy()
     a.run()
-    # exec(open('app.py').read())
+    #exec(open('app.py').read())
     __main_app_launcher()
-    a.stop()
+    while True:
+        test=1
+   # a.stop()
