@@ -5,11 +5,11 @@ block_cipher = None
 
 
 a = Analysis(['_app.py'],
-             pathex=['/Users/byteface/Desktop/apptest'],
+             pathex=['/Users/runner/work/package/package'],
              binaries=[],
              datas=[
              ('assets', 'assets'),
-             ('/Users/byteface/Desktop/apptest/venv/lib/python3.9/site-packages/', '.'),
+             ('/Users/runner/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/', '.'),
              ],
              hiddenimports=[],
              hookspath=[],
