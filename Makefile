@@ -17,7 +17,7 @@ mac:
 win:
 	pyinstaller --onefile --windowed win.spec
 
-lin:
+linux:
 	pyinstaller --onefile --add-data 'assets:assets' --windowed linux.spec
 
 deploy:

@@ -8,7 +8,7 @@ This test tries to achieve 2 things:
 
 	- solves the issue of a users not knowing localhost:5000 and saving to having to provide a server
 
-2. Use Github actions to run pyinstaller and build the app/exe files. which then uploads them to the release page
+2. Use Github actions to run pyinstaller and build app/exe files for linux/mac/windows. which then uploads them to the release page
 
 	- solves the issue of making bundles per platform. i.e. linux/mac/windows (as you can't make an exe from a mac for example)
 
@@ -42,28 +42,30 @@ All the commands to build it are in the Makefile. i.e.
 make mac
 
 make win
+
+make linux
 ```
 
-the .spec files have been modified to include from venv. They are absolute so will need changing for your machine.
+the .spec files have been modified to include from venv. They are absolute so will need changing for the machine they run on.
 
 (they are currenty modded/hardcoced to be the basepaths of the github actions machines)
 
 
 # Pipeline
 
-It has now been updated to use a github action / workflow for publishing the apps. It can be run manually from the actions page.
+Uses github actions to publish the apps. It can be run manually from the actions page.
 
 At the moment there's a bug and you have to delete the release manually to create a new one.
 
 Running it will create the apps and push them into the release page and downloadables.
 
-if you click on the releases page the will be an _app.zip file for each platform (at mo only mac. as i got the dir wrong)
+if you click on the releases page there will be an _app.zip file for each platform (at mo only mac. as i got the dir wrong)
 
 So that means in theory all you have to do to generate an app. Is clone this repo. Swap the app.py for your own. 
 
 then replace the bottom of the new app.py file to init via the expected proxy method shown above rather than via a __main__
 
-map in any assets to the respective .spec files.
+map in any assets to the respective .spec files. and anything new to the requirements.txt
 
 then tag it or run from the actions page and it will build all the app versions.
 
@@ -95,6 +97,30 @@ what we have so far
 
 - debug mode in servers will create 2 tkinter windows as it reloads the \_app.py
 
+
+
+# notes - linux
+
+```
+cd /Desktop/projects/package
+
+python3 -m venv venv
+
+. venv/bin/activate
+
+pip install -r requirements.txt
+
+```
+
+on linux the binaries for tkinter are not included in the python library like they are with mac and windows.
+
+So as well as the libs in the requirements, you have to also manually install it's required binaries with apt-get rather than pip.
+
+sudo apt-get install python3-tk
+
+after which the compiled programme will work the same way as it did on mac and windows.
+
+(TODO - can that step be part of the app installer?)
 
 # notes - mac
 
@@ -146,19 +172,14 @@ however that won't be any good for a github action. so will need to change that 
 
 delete the /build and /dist folders manually before each build on windows.
 
-It doesn't bundle the files the same way it does on mac with same settings. so still need to change some paths etc in the .spec file. The exe I'm expecting to be much larger. unless you create an .exe package/intaller for windows as another step that wraps this exe and all the needed files?.
-
-the exe currently spawns lots of windows so don't run it. sortin a mulitprocessing issue. I can get it to work on windows. tkinter and sanic and the game all as they were on the mac just on the cmd without an exe. so now just need to resovle the multi windows popping up when it's made into an exe. I don't seem to get a good console log of what's go on there. I thought it was related to incorrect asset paths or something hasn't copied over?.
-
-
-*edit?... after writing all that. it just seems to be working fine. the exe is making. without spawning lots of windows. 
-
-it could have been me tinkering before falling asleep or due to this addition
+WARNING. i was getting lots of windows spawning until I added this.
 
 multiprocessing.freeze_support()
 
-anyways. so now i need to push this. and pull on the mac and see if it works on both without having to change it.
 
+# Issues / Bugs
+
+I've noticed using multiprocessing can spawn lots of tkinter windows if it throws errors. so be careful. This should have been resolved. Ideally I'd use the bundled interpretter to call the neighbouring file so will keep investigating.
 
 
 
