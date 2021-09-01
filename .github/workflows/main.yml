@@ -54,11 +54,20 @@ jobs:
                 cd dist/ && zip -r9 _app _app.app/
             OUT_FILE_NAME: _app.zip
             ASSET_MIME: application/zip
-          #- os: windows-latest
-          #  TARGET: windows
-          #  CMD_BUILD: pyinstaller --onefile --windowed win.spec
-          #  OUT_FILE_NAME: _app.exe
-          #  ASSET_MIME: application/vnd.microsoft.portable-executable
+          - os: windows-latest
+            TARGET: windows
+            CMD_BUILD: >
+                pyinstaller --onefile --windowed win.spec &&
+                cd dist/ && zip -r9 _winapp _app/
+            OUT_FILE_NAME: _winapp.zip
+            ASSET_MIME: application/zip
+          - os: ubuntu-latest
+            TARGET: ubuntu
+            CMD_BUILD: >
+                pyinstaller --onefile --windowed linux.spec &&
+                cd dist/ && zip -r9 _linuxapp _app
+            OUT_FILE_NAME: _linuxapp.zip
+            ASSET_MIME: application/zip
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.8
