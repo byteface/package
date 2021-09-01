@@ -58,8 +58,8 @@ jobs:
             TARGET: windows
             CMD_BUILD: >
                 pyinstaller --onefile --windowed win.spec &&
-                cd dist/ && zip -r9 _winapp _app/
-            OUT_FILE_NAME: _winapp.zip
+                cd dist/ && tar -cvzf _winapp.tar _app 
+            OUT_FILE_NAME: _winapp.tar
             ASSET_MIME: application/zip
           - os: ubuntu-latest
             TARGET: ubuntu
