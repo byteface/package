@@ -5,11 +5,11 @@ block_cipher = None
 
 
 a = Analysis(['_app.py'],
-             pathex=['/home/byteface/Desktop/projects/package'],
+             pathex=['/home/runner/work/package/package'],
              binaries=[],
              datas=[
              ('assets', 'assets'),
-             ('/home/byteface/Desktop/projects/package/venv/lib/python3.8/site-packages', '.'),
+             ('/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages', '.'),
              ],
              hiddenimports=["tkinter"],
              hookspath=[],
